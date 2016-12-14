@@ -1,0 +1,12 @@
+C:\Users\marybeth\Documents\Visual Studio 2015\Projects\CCSM\bin\Debug\CCSM.dll.config
+C:\Users\marybeth\Documents\Visual Studio 2015\Projects\CCSM\bin\Debug\CCSM.dll
+C:\Users\marybeth\Documents\Visual Studio 2015\Projects\CCSM\bin\Debug\CCSM.pdb
+C:\Users\marybeth\Documents\Visual Studio 2015\Projects\CCSM\obj\Debug\CCSM.dll
+C:\Users\marybeth\Documents\Visual Studio 2015\Projects\CCSM\obj\Debug\CCSM.pdb
+C:\Users\marybeth\Documents\Visual Studio 2015\Projects\CCSM\obj\Debug\CCSM.csprojResolveAssemblyReference.cache
+D:\CompleteCSM\Code\CCSM\bin\Debug\CCSM.dll.config
+D:\CompleteCSM\Code\CCSM\bin\Debug\CCSM.dll
+D:\CompleteCSM\Code\CCSM\bin\Debug\CCSM.pdb
+D:\CompleteCSM\Code\CCSM\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\CompleteCSM\Code\CCSM\obj\Debug\CCSM.dll
+D:\CompleteCSM\Code\CCSM\obj\Debug\CCSM.pdb
