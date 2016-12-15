@@ -10,3 +10,4 @@ D:\CompleteCSM\Code\CCSM\bin\Debug\CCSM.pdb
 D:\CompleteCSM\Code\CCSM\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
 D:\CompleteCSM\Code\CCSM\obj\Debug\CCSM.dll
 D:\CompleteCSM\Code\CCSM\obj\Debug\CCSM.pdb
+D:\CompleteCSM\Code\CCSM\obj\Debug\CCSM.csprojResolveAssemblyReference.cache

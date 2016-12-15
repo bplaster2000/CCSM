@@ -45,12 +45,14 @@ namespace CCSM.DataAccess
         //private so that it is internal to this constructor
         private BaseCompany getCompanyInfo(BaseCompany company)
         {
-            if (String.IsNullOrEmpty(company.CompanyGUID))
+            if(String.IsNullOrEmpty(company.CompanyGUID) & company.CompanyId == 0)
             {
-                throw new Exception("Company GUID cannot be null, we need a GUID!");
+                throw new Exception("We need a GUID or a companyId to load the company info");
             }
-
             return db.getCompanyByGUID(company);
+            
+
+            
         }
 
         //need an id to play
@@ -61,9 +63,7 @@ namespace CCSM.DataAccess
                 return db.getUserById(user);
             else
                 return db.getUserByEmail(user);
-
         }
-
 
         /* what to impletement the ************************************************************************************************
          * Step 1: Confirm Subscription
@@ -96,7 +96,8 @@ namespace CCSM.DataAccess
             if (user == null)
                 user = new CUser(company, id);
             return db.getUserById(user);
-        }
+        }        
+        
         /// <summary>
         /// Get the subscription for the current user in this DataAccess object 
         /// </summary>
@@ -104,8 +105,9 @@ namespace CCSM.DataAccess
         public Subscription getSubscription()
         {
             if (user == null) throw new Exception("Need a user to find the subscription");
-            return db.getSubscription(user);
+            return this.user.Subscription;
         }
+        
 
         ///<summary>Create a CTA with handling for the Bot</summary>
         ///<param name="userinput">comments from the user through the bot</param>

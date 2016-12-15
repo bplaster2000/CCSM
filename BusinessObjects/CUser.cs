@@ -25,10 +25,14 @@ namespace CCSM.BusinessObjects
         {
             this.company = Company;
             this.userId = userId;
-
         }
 
-       
+        private Subscription subscription;
+        public Subscription Subscription
+        {
+            get { return subscription; }
+            set { subscription = value; }
+        }
         private string targetSegment;
         public string TargetSegment
         {

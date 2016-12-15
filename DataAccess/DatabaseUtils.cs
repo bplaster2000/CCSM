@@ -44,8 +44,10 @@ namespace CCSM.DataAccess
 
         public BaseCompany getCompanyByGUID(BaseCompany gcompany)
         {
-            if (String.IsNullOrEmpty(gcompany.CompanyGUID))
-                throw new Exception("we don't have a guid to look for");
+            if (String.IsNullOrEmpty(gcompany.CompanyGUID) & gcompany.CompanyId == 0)
+            {
+                throw new Exception("We need a GUID or a companyId to load the company info");
+            }
 
             return getCompanyInfo(gcompany);
         }
@@ -55,7 +57,7 @@ namespace CCSM.DataAccess
             if (String.IsNullOrEmpty(user.Email)) throw new Exception("we don't have an email to look for");
 
 
-            string sqlWemail = "select UserId, UserName, Email, TextPhone, OfficePhone, CompanyId, BusinessName, ExternalSystemId,TargetSegment  from Users where Email = @p1";
+            string sqlWemail = "select * from Users where Email = @p1";
             DataRow dr = getFirstRow(getDataSetBySqlOneP(sqlWemail, user.Email));
             return mapUser(dr, user);
 
@@ -64,7 +66,7 @@ namespace CCSM.DataAccess
         {
             if (user == null || user.UserId == 0) throw new Exception("we don't have a user id to look for");
 
-            string sqlWemail = "select UserId, UserName, Email, TextPhone, OfficePhone, CompanyId, BusinessName, ExternalSystemId, TargetSegment from Users where UserId = @p1";
+            string sqlWemail = "select * from Users where UserId = @p1";
             DataRow dr = getFirstRow(getDataSetBySqlOneP(sqlWemail, user.UserId));
             return mapUser(dr, user);
 
@@ -76,8 +78,8 @@ namespace CCSM.DataAccess
         private BaseCompany getCompanyInfo(BaseCompany gcompany)
         {
            
-            string sqlWId = "select CompanyId, companyName, CompanyGUID from Company where CompanyId = @p1";
-            string sqlWGuid = "select CompanyId, companyName, CompanyGUID from Company where CompanyGUID = @p1";
+            string sqlWId = "select * from Company where CompanyId = @p1";
+            string sqlWGuid = "select * from Company where CompanyGUID = @p1";
 
             DataRow dr;
 
@@ -91,6 +93,12 @@ namespace CCSM.DataAccess
             gcompany.CompanyGUID = returnRealOrBlank(dr["CompanyGUID"] as string);
             gcompany.CompanyId = (dr["CompanyId"] != DBNull.Value ? Convert.ToInt16(dr["CompanyId"]) : 0);
             gcompany.CompanyName = returnRealOrBlank(dr["companyName"] as string);
+            gcompany.CsmContactEmail = returnRealOrBlank(dr["CSMContactPhone"] as string);
+            gcompany.MainContactEmail = returnRealOrBlank(dr["MainContactEmail"] as string);
+            gcompany.MainContactPhone = returnRealOrBlank(dr["MainContactPhone"] as string);
+            gcompany.ProductsSoldDesc = returnRealOrBlank(dr["ProductsSoldDesc"] as string);
+            gcompany.SupportContactPhone = returnRealOrBlank(dr["SupportContactPhone"] as string);
+            gcompany.SupportContactEmail = returnRealOrBlank(dr["SupportContactEmail"] as string);
 
             //get the integrations
             Integrations intgr = this.getIntegrations(gcompany);
@@ -120,14 +128,14 @@ namespace CCSM.DataAccess
 
        
         //get one row of subscr info
-        public Subscription getSubscription(CUser user)
+       /* public Subscription getSubscription(CUser user)
         {
             if (user == null)
                 throw new Exception("need a user to find a subscription");
             string sql = "Select SubscId, SubscStart, SubscEnd, SubscProductsMsg, CurrentStage, UserId from Subscriptions " +
                 "where UserId = @p1 ";
             return mapSubscription(getDataSetBySql(sql, user.UserId), user);
-       }
+       }*/
       
 
         //initial links ordered by the initial ordering.   if it is 0 then it is not initial
@@ -447,6 +455,14 @@ namespace CCSM.DataAccess
             else
                 user.Company.CompanyId = CompanyId;
 
+            Subscription subsc = new Subscription(user);
+            if(dr["SubscStart"] != DBNull.Value)
+                subsc.SubscStart = DateTime.Parse(dr["SubscStart"].ToString());
+            if (dr["SubscEnd"] != DBNull.Value)
+                subsc.SubscEnd = DateTime.Parse(dr["SubscEnd"].ToString());
+            subsc.SubscrProductMsg = returnRealOrBlank(dr["SubscProductsMsg"] as string);
+            user.Subscription = subsc;
+
             return user;
 
 
@@ -460,6 +476,7 @@ namespace CCSM.DataAccess
             return user;
             */
         }
+        /*
         private Subscription mapSubscription(DataSet ds, CUser user)
         {
             if (ds == null || ds.Tables[0] == null)
@@ -476,7 +493,7 @@ namespace CCSM.DataAccess
             sb.SubscrProductMsg = returnRealOrBlank(dr["SubscProductsMsg"] as string);
             sb.CurrentStage = returnRealOrBlank(dr["CurrentStage"] as string);
             return sb;
-        }
+        }*/
         private TrainingLink[] mapTrainingLinks(DataSet ds)
         {
             if (ds == null || ds.Tables[0] == null)
@@ -583,8 +600,8 @@ namespace CCSM.DataAccess
                 int stype = (dr["ExpertTimeSlotType"] != DBNull.Value ? Convert.ToInt16(dr["ExpertTimeSlotType"]) : 0);
 
                 if (stype == 1) tl.ExpSlotType = "Webinar";
-                if (stype == 2) tl.ExpSlotType = "TrainingCourse";
-                if (stype == 3) tl.ExpSlotType = "ExpertSession";
+                if (stype == 2) tl.ExpSlotType = "Training Course";
+                if (stype == 3) tl.ExpSlotType = "Expert Session";
 
                 slots[index] = tl;
                 index++;
@@ -620,43 +637,7 @@ namespace CCSM.DataAccess
             }
         }
 
-        /*
-        //get a datatable from a SQL string
-        public DataTable getDataTableBySql(string sqlCmd)
-        {
-            DataSet ds = getDataSetBySql(sqlCmd);
-            foreach (DataTable dt in ds.Tables)
-            {
-                return dt; //return first one.
-            }
-            return null;
-        }*/
-
-        //return the raw dataset
-       /* public DataSet getDataSetBySql(string sqlCmd)
-        {
-            SqlConnection conn = new SqlConnection(_connectionString);
-            SqlDataAdapter da = new SqlDataAdapter(sqlCmd, conn);
-
-            DataSet ds = new DataSet();
-
-            try
-            {
-                conn.Open();
-
-                da.Fill(ds);
-            }
-            catch (SqlException e)
-            {
-                // Handle exception.
-            }
-            finally
-            {
-                conn.Close();
-            }
-
-            return ds;
-        }*/
+        
         public DataSet getDataSetBySql(string sqlCmd, int p1)
         {
             SqlConnection conn = new SqlConnection(_connectionString);
@@ -725,7 +706,7 @@ namespace CCSM.DataAccess
             }
             catch (SqlException e)
             {
-                // Handle exception.
+                throw e;
             }
             finally
             {
@@ -796,7 +777,7 @@ namespace CCSM.DataAccess
             else
                 return s;
         }
-
+        
 
 
     }

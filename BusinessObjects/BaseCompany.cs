@@ -57,13 +57,42 @@ namespace CCSM.BusinessObjects
             set { companyId = value; }
         }
 
-       
-
         private string companyName;
         public string CompanyName
         {
             get { return companyName; }
             set { companyName = value; }
+        }
+
+        private string mainContactEmail;
+        public string MainContactEmail
+        {
+            get { return mainContactEmail; }
+            set { mainContactEmail = value; }
+        }
+        private string csmContactEmail;
+        public string CsmContactEmail
+        {
+            get { return csmContactEmail; }
+            set { csmContactEmail = value; }
+        }
+        private string supportContactPhone;
+        public string SupportContactPhone
+        {
+            get { return supportContactPhone; }
+            set { supportContactPhone = value; }
+        }
+        private string supportContactEmail;
+        public string SupportContactEmail
+        {
+            get { return supportContactEmail; }
+            set { supportContactEmail = value; }
+        }
+        private string productsSoldDesc;
+        public string ProductsSoldDesc
+        {
+            get { return productsSoldDesc; }
+            set { productsSoldDesc = value; }
         }
 
         private Integrations intgr;
