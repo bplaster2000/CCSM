@@ -37,12 +37,7 @@ namespace CCSM.DataAccess
             username = intgr.SFuser;
             password = intgr.SFpwd + intgr.SFToken;
         }
-
-
-        public Subscription lookUpSubscription(string AccountId, Subscription subscIn)
-        {
-            return subscIn;
-        }
+               
 
         public void GetCTAOptions(
             out Dictionary<string,string> priorities,
@@ -78,19 +73,6 @@ namespace CCSM.DataAccess
             logout();
         }
 
-        //field to set          picklist Category      other  
-        //JBCXM__Priority__c    Alert Severity
-        //JBCXM__Stage__c       Alert Status
-        //JBCXM__Reason__c      Alert Reason
-        //JBCXM__TypeName__c                           ? different object - type of CTA?  event or trial
-        //JBCXM__Account__c                            from account object
-        //JBCXM__Assignee__c                           this is from a user
-        //JBCXM__DueDate__c                            user input
-        //JBCXM__Comments__c                           user input
-
-
-        //CTA.type = "JBCXM__CTA__c";
-
         private Dictionary<string, string> SFQueryGSPicklist(string pickListCategory, out ArrayList messages)
         {
             return SFQueryPairs("SELECT Id, Name FROM JBCXM__PickList__c WHERE JBCXM__Category__c = '" + pickListCategory + "' ORDER BY Name ASC NULLS FIRST", out messages);
@@ -107,6 +89,13 @@ namespace CCSM.DataAccess
         {            
             return SFQueryPairs("SELECT Id,Name FROM JBCXM__Playbook__c WHERE JBCXM__Tasks_Count__c != null ORDER BY Name ASC NULLS FIRST", out messages);
         }
+
+        /// <summary>
+        /// get the Salesforce Accounts from the contact email address
+        /// </summary>
+        /// <param name="email">email address in a Contact record to find the AccountIds to pick from</param>
+        /// <param name="messages"></param>
+        /// <returns>a dict of id, name of the accounts</returns>
         public Dictionary<string, string> SFGetAccountsFromEmail(string email, out ArrayList messages)
         {
             if (!login(out messages)) return null;
@@ -120,7 +109,11 @@ namespace CCSM.DataAccess
             logout();
             return Accounts;
         }
-
+        /// <summary>
+        /// build the account list to query later
+        /// </summary>
+        /// <param name="AcctIds"></param>
+        /// <returns></returns>
         private string buildAccounts(ArrayList AcctIds)
         {
             StringBuilder sb = new StringBuilder(" "); //add one in case it is empty
@@ -132,7 +125,12 @@ namespace CCSM.DataAccess
 
         }
 
-        
+        private Dictionary<string, string> SFQueryNew_VCSM_CTA(out ArrayList messages)
+        {
+            return SFQueryPairs("SELECT Id,Name FROM JBCXM__Playbook__c WHERE JBCXM__Tasks_Count__c != null ORDER BY Name ASC NULLS FIRST", out messages);
+        }
+
+
         private ArrayList SFQueryIds(string SFQuery, out ArrayList messages)
         {
 
