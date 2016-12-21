@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace CCSM.BusinessObjects
 {
+    [Serializable]
     public class SupportLink
     {
         public SupportLink() { }
@@ -49,6 +50,7 @@ namespace CCSM.BusinessObjects
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
+            sb.Append(this.SupportlinkName + "[ ");
             sb.Append(this.CompanyId);
             sb.Append(", ");
             sb.Append(this.Supportlink);
@@ -58,6 +60,7 @@ namespace CCSM.BusinessObjects
             sb.Append(this.SupportlinkName);
             sb.Append(", ");
             sb.Append(this.SearchKeywords);
+            sb.Append(" ]");
             return sb.ToString();
         }
 

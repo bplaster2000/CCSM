@@ -10,6 +10,7 @@ using System.Web;
 /// 
 namespace CCSM.BusinessObjects
 {
+    [Serializable]
     public class GenericCompany : BaseCompany
     {
         public GenericCompany(string CompanyGUID) : base(CompanyGUID)

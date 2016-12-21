@@ -9,6 +9,7 @@ using System.Text;
 /// </summary>
 namespace CCSM.BusinessObjects
 {
+    [Serializable]
     public class CUser
     {
         private CUser()

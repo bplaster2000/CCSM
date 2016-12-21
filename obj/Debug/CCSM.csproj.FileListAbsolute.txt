@@ -11,3 +11,15 @@ D:\CompleteCSM\Code\CCSM\bin\Debug\System.Runtime.InteropServices.RuntimeInforma
 D:\CompleteCSM\Code\CCSM\obj\Debug\CCSM.dll
 D:\CompleteCSM\Code\CCSM\obj\Debug\CCSM.pdb
 D:\CompleteCSM\Code\CCSM\obj\Debug\CCSM.csprojResolveAssemblyReference.cache
+C:\Users\sgomaram\Documents\VB\Bot Application1\CCSM\bin\Debug\CCSM.dll.config
+C:\Users\sgomaram\Documents\VB\Bot Application1\CCSM\bin\Debug\CCSM.dll
+C:\Users\sgomaram\Documents\VB\Bot Application1\CCSM\bin\Debug\CCSM.pdb
+C:\Users\sgomaram\Documents\VB\Bot Application1\CCSM\obj\Debug\CCSM.dll
+C:\Users\sgomaram\Documents\VB\Bot Application1\CCSM\obj\Debug\CCSM.pdb
+C:\Users\sgomaram\Documents\VB\Bot Application1\CCSM\obj\Debug\CCSM.csprojResolveAssemblyReference.cache
+C:\Users\sgomaram\Documents\VB\CompleteCSM\CCSM\bin\Debug\CCSM.dll.config
+C:\Users\sgomaram\Documents\VB\CompleteCSM\CCSM\bin\Debug\CCSM.dll
+C:\Users\sgomaram\Documents\VB\CompleteCSM\CCSM\bin\Debug\CCSM.pdb
+C:\Users\sgomaram\Documents\VB\CompleteCSM\CCSM\obj\Debug\CCSM.dll
+C:\Users\sgomaram\Documents\VB\CompleteCSM\CCSM\obj\Debug\CCSM.pdb
+C:\Users\sgomaram\Documents\VB\CompleteCSM\CCSM\obj\Debug\CCSM.csprojResolveAssemblyReference.cache

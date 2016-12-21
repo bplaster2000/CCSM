@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace CCSM.BusinessObjects
 {
+    [Serializable]
     public class ServiceOffLink
     {
 
@@ -65,6 +66,7 @@ namespace CCSM.BusinessObjects
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
+            sb.Append(this.ServiceOffName + "[ ");
             sb.Append(this.CompanyId);
             sb.Append(", ");
             sb.Append(this.serviceOffId);
@@ -74,6 +76,7 @@ namespace CCSM.BusinessObjects
             sb.Append(this.ServiceOffName);
             sb.Append(", ");
             sb.Append(this.ServiceOffDesc);
+            sb.Append(" ]");
 
             return sb.ToString();
         }

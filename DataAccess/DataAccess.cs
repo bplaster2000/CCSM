@@ -11,6 +11,7 @@ using System.Collections;
 /// </summary>
 namespace CCSM.DataAccess
 {
+    [Serializable]
     public class DataAccess
     {
         private DataAccess()

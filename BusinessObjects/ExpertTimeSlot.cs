@@ -10,6 +10,7 @@ using System.Text;
 /// 
 namespace CCSM.BusinessObjects
 {
+    [Serializable]
     public class ExpertTimeSlot
     {
         public ExpertTimeSlot()
@@ -71,6 +72,9 @@ namespace CCSM.BusinessObjects
 
         }
 
-
+        public static implicit operator string(ExpertTimeSlot v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

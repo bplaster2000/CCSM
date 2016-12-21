@@ -11,6 +11,7 @@ using System.Text;
 /// 
 namespace CCSM.BusinessObjects
 {
+    [Serializable]
     public abstract class BaseCompany
     {
 

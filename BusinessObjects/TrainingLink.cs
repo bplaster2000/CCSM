@@ -10,6 +10,7 @@ using System.Text;
 /// 
 namespace CCSM.BusinessObjects
 {
+    [Serializable]
     public class TrainingLink
     {
         public TrainingLink() { }

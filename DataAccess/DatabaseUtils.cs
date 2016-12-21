@@ -13,6 +13,7 @@ using System.Collections;
 /// </summary>
 namespace CCSM.DataAccess
 {
+    [Serializable]
     public class DatabaseUtils
     {
         private string _connectionString;
@@ -460,8 +461,19 @@ namespace CCSM.DataAccess
                 subsc.SubscStart = DateTime.Parse(dr["SubscStart"].ToString());
             if (dr["SubscEnd"] != DBNull.Value)
                 subsc.SubscEnd = DateTime.Parse(dr["SubscEnd"].ToString());
-            subsc.SubscrProductMsg = returnRealOrBlank(dr["SubscProductsMsg"] as string);
-            user.Subscription = subsc;
+            
+            if (dr["SubscStart"] == DBNull.Value || dr["SubscEnd"] == DBNull.Value)
+            {
+                user.Subscription = null;
+            }
+            else
+            {
+                if (dr["SubscProductsMsg"] == DBNull.Value)
+                    subsc.SubscrProductMsg = returnRealOrBlank("<Product info not available>" as string);
+                else
+                    subsc.SubscrProductMsg = returnRealOrBlank(dr["SubscProductsMsg"] as string);
+                user.Subscription = subsc;
+            }
 
             return user;
 
